@@ -1,25 +1,63 @@
-# Uncomment the following imports before adding the Model code
-
-# from django.db import models
-# from django.utils.timezone import now
-# from django.core.validators import MaxValueValidator, MinValueValidator
+from django.db import models
+from django.utils.timezone import now
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 
-# Create your models here.
+class CarMake(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+    country_of_origin = models.CharField(max_length=100, blank=True, null=True)  # New field
+    established_year = models.IntegerField(
+        validators=[
+            MinValueValidator(1800),  # Cars likely started being produced after 1800
+            MaxValueValidator(now().year)
+        ],
+        blank=True, null=True  # Optional field
+    )
+    logo = models.ImageField(upload_to='car_make_logos/', blank=True, null=True)  # Optional logo field
 
-# <HINT> Create a Car Make model `class CarMake(models.Model)`:
-# - Name
-# - Description
-# - Any other fields you would like to include in car make model
-# - __str__ method to print a car make object
+    def __str__(self):
+        return self.name  # Return the name as the string representation
 
 
-# <HINT> Create a Car Model model `class CarModel(models.Model):`:
-# - Many-To-One relationship to Car Make model (One Car Make has many
-# Car Models, using ForeignKey field)
-# - Name
-# - Type (CharField with a choices argument to provide limited choices
-# such as Sedan, SUV, WAGON, etc.)
-# - Year (IntegerField) with min value 2015 and max value 2023
-# - Any other fields you would like to include in car model
-# - __str__ method to print a car make object
+class CarModel(models.Model):
+    car_make = models.ForeignKey(CarMake, on_delete=models.CASCADE, related_name="car_models")  # Many-to-One relationship
+    name = models.CharField(max_length=100)
+    CAR_TYPES = [
+        ('SEDAN', 'Sedan'),
+        ('SUV', 'SUV'),
+        ('WAGON', 'Wagon'),
+        ('HATCHBACK', 'Hatchback'),
+        ('COUPE', 'Coupe'),
+        ('CONVERTIBLE', 'Convertible'),
+        ('PICKUP', 'Pickup Truck'),
+        ('VAN', 'Van'),
+    ]
+    type = models.CharField(max_length=15, choices=CAR_TYPES, default='SUV')
+    year = models.IntegerField(
+        default=now().year,
+        validators=[
+            MinValueValidator(2015),
+            MaxValueValidator(now().year)
+        ]
+    )
+    engine_type = models.CharField(
+        max_length=50,
+        choices=[
+            ('PETROL', 'Petrol'),
+            ('DIESEL', 'Diesel'),
+            ('ELECTRIC', 'Electric'),
+            ('HYBRID', 'Hybrid'),
+            ('CNG', 'CNG'),
+        ],
+        default='PETROL'
+    )  # New field
+    seating_capacity = models.IntegerField(default=5)  # New field
+    price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)  # Price with 2 decimal places
+    color_options = models.CharField(max_length=255, blank=True, null=True)  # Store color options as a comma-separated string
+    fuel_efficiency = models.DecimalField(
+        max_digits=5, decimal_places=2, blank=True, null=True
+    )  # Fuel efficiency in km/l or equivalent
+
+    def __str__(self):
+        return f"{self.name} ({self.car_make.name})"  # More descriptive string representation
