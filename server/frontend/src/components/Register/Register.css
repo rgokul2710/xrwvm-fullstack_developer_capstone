@@ -1,65 +1,91 @@
-.register_container{
+.register_container {
   display: flex;
   flex-direction: column;
   margin: auto;
   margin-top: 2%;
-  background-color: darkturquoise;
+  background-color: #f9f9f9;
   min-width: 350px;
   width: 30%;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-.inputs{
+.inputs {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.input{
+.input {
   display: flex;
-  flex-direction:row;
+  flex-direction: row;
   align-items: center;
+  margin-bottom: 15px;
 }
 
-.input_field{
-  height:40px;
-  width:200px;
-  margin:.5cm;
+.input_field {
+  height: 40px;
+  width: 100%;
+  margin: 0 10px;
   font-size: medium;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 5px;
 }
 
-.submit_panel{
+.submit_panel {
   display: flex;
-  flex-direction:column;
-  margin-top: 5%;
-  margin-bottom: 5%;
+  justify-content: center;
+  margin: 20px 0;
 }
 
-.submit{
-  margin-left: 30%;
-  margin-right: 30%;
+.submit {
   cursor: pointer;
-  font-size: large;
-  color: rgb(97, 64, 128);
-  border-radius: 10px;
-  height:50px;
+  font-size: medium;
+  color: #fff;
+  background-color: #4caf50;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s;
 }
 
 .submit:hover {
-  background-color: wheat;
+  background-color: #45a049;
 }
 
-.header{
-  font: 4em sans-serif;
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #007bff;
   color: white;
-  margin: .5cm;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
-.img_icon{
-  width:40px;
-  margin:.1cm;
-  background-color:#0C9;
-  color:#FFF;
-  border-radius:50px;
-  text-align:center;
-  box-shadow: 2px 2px 3px #999;  
+.text {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.close_btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close_btn img {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.img_icon {
+  width: 30px;
+  margin-right: 10px;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
