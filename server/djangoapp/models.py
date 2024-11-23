@@ -6,8 +6,8 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 class CarMake(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
-    country_of_origin = models.CharField(max_length=100, 
-                                         blank=True, 
+    country_of_origin = models.CharField(max_length=100,
+                                         blank=True,
                                          null=True)
     established_year = models.IntegerField(
         validators=[
@@ -16,8 +16,8 @@ class CarMake(models.Model):
         ],
         blank=True, null=True  # Optional field
     )
-    logo = models.ImageField(upload_to='car_make_logos/', 
-                             blank=True, 
+    logo = models.ImageField(upload_to='car_make_logos/',
+                             blank=True,
                              null=True)
 
     def __str__(self):
@@ -25,8 +25,8 @@ class CarMake(models.Model):
 
 
 class CarModel(models.Model):
-    car_make = models.ForeignKey(CarMake, 
-                                 on_delete=models.CASCADE, 
+    car_make = models.ForeignKey(CarMake,
+                                 on_delete=models.CASCADE,
                                  related_name="car_models")
     name = models.CharField(max_length=100)
     CAR_TYPES = [
@@ -72,4 +72,4 @@ class CarModel(models.Model):
                                           null=True)
 
     def __str__(self):
-        return f"{self.name} ({self.car_make.name})"  
+        return f"{self.name} ({self.car_make.name})"
